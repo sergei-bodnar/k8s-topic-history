@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: topics-history-pv
+  labels:
+    type: topics-history
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 10Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/volumes/topics-history"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: topics-history-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 10Mi
+  storageClassName: manual
+  volumeName: topics-history-pv

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX", UTC} level=%-5level, class=%c, thread=[%thread], env=${SPRING_PROFILES_ACTIVE} %mdc message='%m%replace(%xException){'\n', ' '}'%nopex%n</pattern>
+            </Pattern>
+        </layout>
+    </appender>
+
+    <variable name="APP_LOG_LEVEL" value="${APP_LOG_LEVEL:-INFO}"/>
+    <logger name="com.nordstrom.wine.reorder" level="${APP_LOG_LEVEL}"/>
+
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+    </root>
+</configuration>

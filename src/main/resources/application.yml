@@ -1,0 +1,4 @@
+environment: ${spring.profiles.active}
+
+config:
+  topics.repository.path: ${TOPICS_FILE_LOCATION}

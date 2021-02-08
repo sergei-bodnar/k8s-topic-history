@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: topics-history
+  labels:
+    app: topics-history
+spec:
+  selector:
+    matchLabels:
+      app: topics-history
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: topics-history
+    spec:
+      volumes:
+        - name: topics-history-volume
+          persistentVolumeClaim:
+            claimName: topics-history-pvc
+      containers:
+        - name: topics-history-pod
+          image: sergei-bodnar/topics-history
+          env:
+            - name: TOPICS_FILE_LOCATION
+              value: /volume/topics-history.txt
+          imagePullPolicy: Never
+          ports:
+          - containerPort: 8080
+          volumeMounts:
+          - name: topics-history-volume
+            mountPath: /volume
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: topics-history-service
+spec:
+  type: ClusterIP
+  selector:
+    app: topics-history
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
