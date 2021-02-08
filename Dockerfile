@@ -1,10 +1,10 @@
 FROM gradle:jdk11-openj9
 
-COPY . /app
+COPY src /app/src
+COPY build.gradle /app
+COPY settings.gradle /app
+
 WORKDIR /app
 RUN gradle build
-
 EXPOSE 8080
-WORKDIR /app
-
-CMD java -jar build/libs/TopicHistory-1.0.0.jar
+CMD java -jar build/libs/TopicsHistory-1.0.0.jar
