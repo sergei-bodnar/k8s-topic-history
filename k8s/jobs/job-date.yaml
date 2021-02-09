@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-date
+spec:
+  template:
+    spec:
+      containers:
+      - name: job-date
+        image: busybox
+        args:
+        - sh
+        - -c
+        - echo This simple job shows current time && date
+      restartPolicy: Never
+  backoffLimit: 4
